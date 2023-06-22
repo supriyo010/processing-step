@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Progress Meter</title>
+  <style>
+    body {
+      background-color: rgb(239, 239, 243);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Styles for progress meter */
+    .progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .step {
+      width: 25px;
+      height: 25px;
+      background-color: gray;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    .active {
+      background-color: blue;
+    }
+
+    /* Styles for previous and next buttons */
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      padding: 2px 20px;
+      background-color: blue;
+      color: yellow;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress">
+    <div class="step active">1</div>
+    <div class="step">2</div>
+    <div class="step">3</div>
+    <div class="step">4</div>
+  </div>
+  <div class="buttons">
+    <button class="btn" id="prevBtn" disabled>Previous</button>
+    <P>   </P>
+    <button class="btn" id="nextBtn">Next</button>
+  </div>
+
+  <script>
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const steps = document.querySelectorAll('.step');
+    let currentStep = 0;
+
+    nextBtn.addEventListener('click', () => {
+      steps[currentStep].classList.remove('active');
+      currentStep++;
+      steps[currentStep].classList.add('active');
+      prevBtn.disabled = false;
+
+      if (currentStep === steps.length - 1) {
+        nextBtn.disabled = true;
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      steps[currentStep].classList.remove('active');
+      currentStep--;
+      steps[currentStep].classList.add('active');
+      nextBtn.disabled = false;
+
+      if (currentStep === 0) {
+        prevBtn.disabled = true;
+      }
+    });
+  </script>
+</body>
+</html>
